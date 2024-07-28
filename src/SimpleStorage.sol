@@ -1,14 +1,29 @@
-//SPDX-License-Identifier: MIT
-pragma solidity 0.8.18;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.18;
 
 contract SimpleStorage {
-    uint256 public asdf;
+    uint256 myFavoriteNumber;
 
-    constructor() {
-        asdf = 1;
+    struct Person {
+        uint256 favoriteNumber;
+        string name;
+    }
+    // uint256[] public anArray;
+    Person[] public listOfPeople;
+
+    mapping(string => uint256) public nameToFavoriteNumber;
+
+    function store(uint256 _favoriteNumber) public {
+        myFavoriteNumber = _favoriteNumber;
     }
 
-    function addd(uint a) public returns (uint) {
-        return a + asdf;
+    function retrieve() public view returns (uint256) {
+        return myFavoriteNumber;
+    }
+
+    function addPerson(string memory _name, uint256 _favoriteNumber) public {
+        listOfPeople.push(Person(_favoriteNumber, _name));
+        nameToFavoriteNumber[_name] = _favoriteNumber;
     }
 }
